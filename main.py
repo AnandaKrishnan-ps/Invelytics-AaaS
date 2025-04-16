@@ -33,5 +33,5 @@ app.include_router(
 
 
 @app.get("/", include_in_schema=False)
-def read_root():
+def read_root() -> RedirectResponse:
     return RedirectResponse("/docs")

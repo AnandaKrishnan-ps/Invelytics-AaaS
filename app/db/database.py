@@ -15,7 +15,7 @@ class Database:
     _db: AsyncIOMotorDatabase
 
     @classmethod
-    def connect(cls):
+    def connect(cls) -> None:
         """
         Establishes a singleton MongoDB connection.
         Creates a new client connection if one doesn't exist.
@@ -28,7 +28,7 @@ class Database:
             cls._db = cls.db_client[settings.DB_NAME]
 
     @classmethod
-    def close(cls):
+    def close(cls) -> None:
         """
         Closes the MongoDB connection and cleans up resources.
         Removes the client and database references from the class.
@@ -41,7 +41,7 @@ class Database:
             del cls._db
 
 
-async def start_db():
+async def start_db() -> None:
     """
     Initialize the database connection.
     Should be called when the application starts.
@@ -49,7 +49,7 @@ async def start_db():
     Database.connect()
 
 
-async def shutdown_db_client():
+async def shutdown_db_client() -> None:
     """
     Cleanup database connections.
     Should be called when the application shuts down.

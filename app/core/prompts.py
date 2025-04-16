@@ -1,4 +1,4 @@
-def get_analytics_prompt(today: str, inventory_summary: str):
+def get_analytics_prompt(today: str, inventory_summary: str) -> str:
     return f"""
 # ROLE:
     -   You are a business analyst AI. 
@@ -15,7 +15,8 @@ def get_analytics_prompt(today: str, inventory_summary: str):
 {inventory_summary}
 """
 
-def get_recommendations_prompt(today: str, inventory_summary: str):
+
+def get_recommendations_prompt(today: str, inventory_summary: str) -> str:
     return f"""
 # ROLE:
     -   You are a strategic business advisor AI.
