@@ -6,7 +6,7 @@ router = APIRouter()
 
 
 @router.get("/daily-recommendations-pdf")
-async def get_daily_recommendations_pdf() -> StreamingResponse:
+async def send_daily_analytics_pdf() -> StreamingResponse:
     """
     Endpoint to generate and download a PDF with daily operational insights.
     Returns the PDF as a downloadable file.
