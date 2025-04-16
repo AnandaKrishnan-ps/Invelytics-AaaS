@@ -3,6 +3,9 @@ import io
 from datetime import datetime
 from typing import List
 
+from ollama import AsyncClient
+from xhtml2pdf import pisa  # type: ignore
+
 from app.core.inventory_logic import get_all_inventory_items
 from app.core.prompts import (
     get_analytics_prompt,
@@ -11,8 +14,6 @@ from app.core.prompts import (
 )
 from app.db.database import Database
 from app.models.inventory_schema import InventoryResponse
-from ollama import AsyncClient
-from xhtml2pdf import pisa  # type: ignore
 
 OLLAMA_API_URL = "http://localhost:11434/api/chat"
 OLLAMA_MODEL = "llama3.2"
@@ -94,6 +95,7 @@ async def generate_html_report(inventory: List[InventoryResponse]) -> str:
 async def generate_daily_recommendations_pdf() -> io.BytesIO:
     """Master function to create final PDF."""
     try:
+        raise ValueError("Simulating an error for testing purposes.")
         inventory = await get_all_inventory_items(
             Database._db.inventory, ignore_limit=True
         )
