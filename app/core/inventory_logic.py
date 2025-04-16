@@ -17,15 +17,13 @@ async def get_all_inventory_items(
     service: AsyncIOMotorCollection,
     limit: int = 10,
     skip: int = 0,
-    ignore_limit: bool = False,
+    sort_by: str = "last_updated",
+    sort_order: str = "desc",
 ) -> List[InventoryResponse]:
     items = []
     try:
-        if ignore_limit:
-            limit = await service.count_documents({})
-            skip = 0
-
-        cursor = service.find().skip(skip).limit(limit)
+        sort_dir = -1 if sort_order.lower() == "desc" else 1
+        cursor = service.find().sort(sort_by, sort_dir).skip(skip).limit(limit)
         async for doc in cursor:
             doc["id"] = str(doc["_id"])
             items.append(InventoryResponse(**doc))

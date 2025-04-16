@@ -26,12 +26,13 @@ async def list_inventory(
     limit: int = Query(10, ge=1, le=100),
     skip: int = Query(0, ge=0),
     service: Any = Depends(get_inventory_service),
-    ignore_limit: bool = Query(False),
+    sort_by: str = Query("last_updated", regex="^(last_updated|name)$"),
+    sort_order: str = Query("desc", regex="^(asc|desc)$"),
 ) -> List[InventoryResponse]:
     try:
 
         return await get_all_inventory_items(
-            service, limit=limit, skip=skip, ignore_limit=ignore_limit
+            service, limit=limit, skip=skip, sort_by=sort_by, sort_order=sort_order
         )
     except HTTPException as e:
         raise e
