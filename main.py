@@ -1,7 +1,8 @@
 # main.py
 
-from api import inventory, logistics, recommendations, surplus
-from config import lifespan, settings
+from app.api import inventory, logistics, recommendations, surplus
+from config import settings
+from lifespan import lifespan
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
