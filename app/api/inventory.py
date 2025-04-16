@@ -7,7 +7,10 @@ from app.core.inventory_logic import (
     get_all_inventory_items,
     update_inventory_item,
 )
-from app.dependencies.inventory_deps import get_inventory_service
+from app.dependencies.inventory_deps import (
+    get_inventory_logs_service,
+    get_inventory_service,
+)
 from app.models.inventory_schema import (
     InventoryItem,
     InventoryResponse,
@@ -48,9 +51,12 @@ async def create_inventory_item(
 
 @router.put("/{item_id}", response_model=InventoryResponse)
 async def update_inventory(
-    item_id: str, update: InventoryUpdate, service: Any = Depends(get_inventory_service)
+    item_id: str,
+    update: InventoryUpdate,
+    service: Any = Depends(get_inventory_service),
+    log_service: Any = Depends(get_inventory_logs_service),
 ) -> InventoryResponse:
     try:
-        return await update_inventory_item(item_id, update, service)
+        return await update_inventory_item(item_id, update, service, log_service)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
