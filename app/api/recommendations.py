@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Dict
 
 from app.core.recommendations import generate_daily_recommendations_pdf
@@ -13,7 +14,8 @@ async def send_daily_analytics_pdf() -> Dict[str, str]:
     try:
         pdf_file = await generate_daily_recommendations_pdf()
         await send_pdf_via_email(
-            pdf_data=pdf_file.getvalue(), subject="Daily Operational Insights 📊"
+            pdf_data=pdf_file.getvalue(),
+            subject=f"Daily Operational Insights of {datetime.now().strftime('%D')}",
         )
         return {"message": f"PDF sent successfully to {settings.REPORT_EMAIL_RECEIVER}"}
     except Exception as e:
