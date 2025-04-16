@@ -2,7 +2,7 @@
 from contextlib import asynccontextmanager
 from typing import Any
 
-from app.core.scheduler import start_scheduler
+from app.utils.scheduler import start_scheduler
 from app.db import shutdown_db_client, start_db
 from fastapi import FastAPI
 
