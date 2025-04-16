@@ -1,11 +1,6 @@
 # main.py
 
-from app import (
-    inventory_router,
-    logistics_router,
-    recommendations_router,
-    surplus_router,
-)
+from app import inventory_router, recommendations_router, surplus_router
 from config import settings
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -26,7 +21,6 @@ app.add_middleware(
 # Include Routers
 app.include_router(inventory_router, prefix="/api/inventory", tags=["Inventory"])
 app.include_router(surplus_router, prefix="/api/surplus", tags=["Surplus"])
-app.include_router(logistics_router, prefix="/api/logistics", tags=["Logistics"])
 app.include_router(
     recommendations_router, prefix="/api/recommendations", tags=["Recommendations"]
 )
