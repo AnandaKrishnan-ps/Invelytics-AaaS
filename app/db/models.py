@@ -23,26 +23,8 @@ class SurplusItem(BaseModel):
     quantity: int
     price: float
 
-
 class SurplusRequest(BaseModel):
     surplus_items: List[SurplusItem]
-
-
-class DeliveryRequest(BaseModel):
-    destination: str
-    items: List[InventoryItem]
-
-
-class LogisticsRequest(BaseModel):
-    deliveries: List[DeliveryRequest]
-    sources: List[str]
-
-
-class LogisticsPlanResponse(BaseModel):
-    route_id: str
-    source: str
-    destination: str
-    items: List[InventoryItem]
 
 
 class SurplusMatchResponse(BaseModel):

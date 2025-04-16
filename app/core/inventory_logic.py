@@ -3,13 +3,12 @@
 from datetime import UTC, datetime
 from typing import List
 
-from app.core.enums import InventoryChangeCategory
+from app.core.enums import InventoryChangeCategory, UpdatedByCategory
 from app.models.inventory_schema import (
     InventoryItem,
     InventoryResponse,
     InventoryUpdate,
 )
-from bson import ObjectId
 from fastapi import HTTPException
 from motor.motor_asyncio import AsyncIOMotorCollection
 
@@ -47,14 +46,6 @@ async def add_inventory_item(
     return InventoryResponse(**item_dict)
 
 
-from datetime import UTC, datetime
-
-from app.core.enums import InventoryChangeCategory
-from app.models.inventory_schema import InventoryItem, InventoryResponse
-from bson import ObjectId
-from motor.motor_asyncio import AsyncIOMotorCollection
-
-
 async def update_inventory_item(
     item_id: str,
     update: InventoryUpdate,
@@ -64,12 +55,12 @@ async def update_inventory_item(
     update_data = {k: v for k, v in update.model_dump().items() if v is not None}
     update_data["last_updated"] = datetime.now(UTC)
 
-    existing = await service.find_one({"_id": ObjectId(item_id)})
+    existing = await service.find_one({"item_id": item_id})
     if not existing:
         raise ValueError("Inventory item not found")
 
     result = await service.find_one_and_update(
-        {"_id": ObjectId(item_id)}, {"$set": update_data}, return_document=True
+        {"item_id": item_id}, {"$set": update_data}, return_document=True
     )
 
     # Audit Logging for quantity only
@@ -91,7 +82,7 @@ async def update_inventory_item(
                     "old_quantity": old_qty,
                     "updated_quantity": new_qty,
                     "category": category,
-                    "updated_by": "system",
+                    "updated_by": UpdatedByCategory.SYSTEM.value,
                 }
             )
 
