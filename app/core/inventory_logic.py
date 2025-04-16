@@ -47,13 +47,12 @@ async def add_inventory_item(
     return InventoryResponse(**item_dict)
 
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 from app.core.enums import InventoryChangeCategory
 from app.models.inventory_schema import InventoryItem, InventoryResponse
 from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorCollection
-from pytz import UTC
 
 
 async def update_inventory_item(
