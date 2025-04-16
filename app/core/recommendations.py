@@ -12,7 +12,7 @@ from app.core.prompts import (
 from app.db.database import Database
 from app.models.inventory_schema import InventoryResponse
 from ollama import AsyncClient
-from xhtml2pdf import pisa
+from xhtml2pdf import pisa  # type: ignore
 
 OLLAMA_API_URL = "http://localhost:11434/api/chat"
 OLLAMA_MODEL = "llama3.2"
