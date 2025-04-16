@@ -1,11 +1,10 @@
 # main.py
 
 from api import inventory, logistics, recommendations, surplus
-from config import settings
+from config import lifespan, settings
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
-from lifespan import lifespan
 
 app = FastAPI(title=settings.PROJECT_NAME, version="1.0.0", lifespan=lifespan)
 
