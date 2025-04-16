@@ -8,7 +8,6 @@ from pydantic import BaseModel
 class SurplusItem(BaseModel):
     item_id: str
     quantity: int
-    price: float
 
 
 class SurplusRequest(BaseModel):
