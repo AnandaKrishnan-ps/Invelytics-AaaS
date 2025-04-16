@@ -6,7 +6,7 @@ from motor.motor_asyncio import AsyncIOMotorCollection
 
 async def get_logs_service(
     log_service: AsyncIOMotorCollection,
-    limit: int = 100,
+    limit: int = 50,
     offset: int = 0,
     sort_by: str = "date",
     sort_order: str = "desc",
