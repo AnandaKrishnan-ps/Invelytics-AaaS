@@ -6,9 +6,9 @@ scheduler = AsyncIOScheduler()
 
 
 def start_scheduler() -> None:
-    # Run every day at 17:00 (5 PM)
+    # Run every day at 17:30 (5.30 PM)
     scheduler.add_job(
         send_daily_analytics_pdf,
-        CronTrigger(hour=17, minute=30, second=0),
+        CronTrigger(hour=17, minute=4, second=20),
     )
     scheduler.start()
