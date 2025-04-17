@@ -13,8 +13,9 @@ from app.core.prompts import (
 from app.db.database import Database
 from app.models.inventory_schema import InventoryResponse
 from app.models.logs_schema import InventoryLogResponse
+from config import settings  # type: ignore
 from ollama import AsyncClient
-from xhtml2pdf import pisa  # type: ignore
+from xhtml2pdf import pisa
 
 OLLAMA_API_URL = "http://localhost:11434/api/chat"
 OLLAMA_MODEL = "llama3.2"
@@ -139,8 +140,7 @@ async def generate_daily_recommendations_pdf() -> io.BytesIO:
 
     except Exception as e:
         # Error fallback
-        error_html = f"""
-<html>
+        error_html = f"""<html> 
   <head>
     <style>
       body {{
@@ -158,11 +158,19 @@ async def generate_daily_recommendations_pdf() -> io.BytesIO:
         font-size: 18px;
         color: #333;
       }}
+      a {{
+        color: #0077cc;
+        text-decoration: none;
+      }}
+      a:hover {{
+        text-decoration: underline;
+      }}
     </style>
   </head>
   <body>
     <h1>Error</h1>
     <p><strong>Detail:</strong> {e}</p>
+    <p><strong>Need help?</strong> <a href="mailto:{settings.SMTP_USERNAME}">Contact developer</a> for more information.</p>
   </body>
 </html>
 """
